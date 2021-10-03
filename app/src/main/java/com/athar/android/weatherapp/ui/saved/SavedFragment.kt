@@ -46,12 +46,14 @@ class SavedFragment : Fragment() {
         viewModel.getLocation().observe(viewLifecycleOwner, { response ->
             lifecycleScope.launch {
                 viewModel.progress.value = true
-                delay(1000)
+                delay(100)
                 if (response.isNotEmpty()) {
                     locationAdapter.differ.submitList(response)
                     fragmentSavedBinding.textViewNoBookmarks.hide()
+                    fragmentSavedBinding.recyclerView.show()
                 } else {
                     fragmentSavedBinding.textViewNoBookmarks.show()
+                    fragmentSavedBinding.recyclerView.hide()
                 }
                 viewModel.progress.value = false
             }
@@ -83,7 +85,6 @@ class SavedFragment : Fragment() {
                         show()
                     }
             }
-
         }
         ItemTouchHelper(itemTouchHelperCallback).apply {
             attachToRecyclerView(fragmentSavedBinding.recyclerView)
