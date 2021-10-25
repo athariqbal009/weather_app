@@ -25,6 +25,7 @@ class HelpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fragmentHelpBinding = FragmentHelpBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
+        lifecycle.addObserver(viewModel)
         viewModel.getHelp()
         viewModel.helpData.observe(viewLifecycleOwner, { response ->
             when (response) {

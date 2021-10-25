@@ -37,6 +37,7 @@ class SavedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fragmentSavedBinding = FragmentSavedBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
+        lifecycle.addObserver(viewModel)
         initRecyclerView()
         setupTouchHelper(view)
         getLocation()

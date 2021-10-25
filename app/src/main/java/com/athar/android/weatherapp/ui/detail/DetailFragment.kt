@@ -38,6 +38,7 @@ class DetailFragment : Fragment() {
         val location = args.selectedLocation
         Timber.d("latitude:${location.latitude} longitude:${location.longitude}")
         viewModel = (activity as MainActivity).viewModel
+        lifecycle.addObserver(viewModel)
         initRecyclerView()
         //initDetailWeather(location)
         initForecastWeather(location)

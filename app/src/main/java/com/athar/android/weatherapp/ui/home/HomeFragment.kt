@@ -61,6 +61,7 @@ class HomeFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         fragmentHomeBinding = FragmentHomeBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
+        lifecycle.addObserver(viewModel)
         setupMapFragment(view)
     }
 

@@ -5,10 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.athar.android.data.Resource
 import com.athar.android.domain.DetailWeather
 import com.athar.android.domain.Location
@@ -24,6 +22,8 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
+private const val TAG: String = "LocationViewModel"
+
 class LocationViewModel(
     private val app:Application,
     private val detailLocationWeatherUseCase: DetailLocationWeatherUseCase,
@@ -32,7 +32,7 @@ class LocationViewModel(
     private val getSavedLocationUseCase: GetSavedLocationUseCase,
     private val deleteSavedLocationUseCase: DeleteSavedLocationUseCase,
     private val preferenceStorage: PreferenceStorage
-): AndroidViewModel(app) {
+): AndroidViewModel(app), LifecycleObserver {
     val locationWeather: MutableLiveData<Resource<DetailWeather>> = MutableLiveData()
     val forecastWeather: MutableLiveData<Resource<DetailWeather>> = MutableLiveData()
     val progress : MutableLiveData<Boolean> = MutableLiveData()
@@ -117,5 +117,35 @@ class LocationViewModel(
             }
         }
         return false
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        Log.d(TAG, "onCreate() from ViewModel")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onStart() {
+        Log.d(TAG, "onStart() from ViewModel")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
+        Log.d(TAG, "onPause() from ViewModel")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        Log.d(TAG, "onResume() from ViewModel")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onStop() {
+        Log.d(TAG, "onStop() from ViewModel")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        Log.d(TAG, "onDestroy() from ViewModel")
     }
 }
